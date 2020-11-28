@@ -1,0 +1,90 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url(../img/galaxy.jpg);
+}
+h1,
+legend,
+h3 {
+  font-family: "Architects Daughter", cursive;
+}
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1em;
+  display: flex;
+  flex-flow: row nowrap;
+  background-color: #efb106;
+}
+p,
+[for="abtype"] {
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+section {
+  flex-basis: 57%;
+  margin-right: 10%;
+}
+aside {
+  flex-basis: 33%;
+}
+fieldset {
+  border-radius: 10px;
+  border: 1px solid black;
+  margin: 0 0 2rem 0;
+}
+legend {
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-top: 1.5rem 0 1rem 0;
+  display: block;
+}
+label {
+  display: block;
+  padding-bottom: 0.3rem;
+}
+textarea {
+  height: 10rem;
+  padding: 1rem;
+  resize: none;
+}
+select {
+  font-size: 1rem;
+}
+button {
+  font-size: 1rem;
+  margin: 2rem 0;
+  background-color: #bb342f;
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+button:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+input:not([type="radio"]):not([type="checkbox"]),
+textarea,
+select {
+  display: block;
+  margin-bottom: 2rem;
+  width: 20rem;
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+[for="name"],
+[for="date"] {
+  padding-top: 1rem;
+}
