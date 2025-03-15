@@ -43,6 +43,7 @@ li a {
 .cropmodestyle{
     display: flex;
     align-items: center;
+    margin-top: 5em;
     justify-content: center;
     border-bottom: 2px solid #bbb;
     padding: 5px 0 5px 0;
