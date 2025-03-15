@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Lighting" />
+    <meta name="author" content="Abdulrahman" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="lighting.css" />
+    <title>LIGHTING</title>
+  </head>
+  <body>
+    <div class="menu-bar">
+      <ul>
+        <li>
+          <b><a href="homepage.html">Home</a></b>
+        </li>
+        <li>
+          <b
+            ><a href="temperature.html"
+              >Temperature</a
+            ></b
+          >
+        </li>
+        <li class="active">
+          <b><a href="lighting.html">Lighting</a></b>
+        </li>
+        <li>
+          <b
+            ><a href="pump_valves.html"
+              >Pump & Valves</a
+            ></b
+          >
+        </li>
+        <li>
+          <b><a href="charts.html">Charts</a></b>
+        </li>
+      </ul>
+    </div>
+    <br /><br /><br /><br />
+    <div class="cropmodestyle">
+      <b>Crop Mode:&nbsp;&nbsp;</b><b id="cropmode">...</b>
+    </div>
+    <div class="tray1">
+      <b class="traytext">TRAY 1</b>
+      <br /><br />
+      <div class="growlightlabel">
+        <b>&nbsp;&nbsp;LED Grow Light:&nbsp;</b>
+        <b>OFF</b>
+        <label class="switch">
+          <input type="checkbox" id="Growlight1" onclick="handleClick(this);" />
+          <span class="slider round"></span>
+        </label>
+        <b>ON</b>
+      </div>
+    </div>
+    <br /><br /><br />
+    <div class="tray2">
+      <b class="traytext">TRAY 2</b>
+      <br /><br />
+      <div class="growlightlabel">
+        <b>&nbsp;&nbsp;LED Grow Light:&nbsp;</b>
+        <b>OFF</b>
+        <label class="switch">
+          <input type="checkbox" id="Growlight2" onclick="handleClick(this);" />
+          <span class="slider round"></span>
+        </label>
+        <b>ON</b>
+      </div>
+    </div>
+    <div id="invisible">
+      <b id="wattemp"></b>
+      <b id="nuttemp"></b>
+      <b id="roomtemp1"></b>
+      <b id="coolingfan1"></b>
+      <b id="roomtemp2"></b>
+      <b id="coolingfan2"></b>
+      <b id="watlevel"></b>
+      <b id="nutlevel"></b>
+      <b id="nutvalve1"></b>
+      <b id="watvalve"></b>
+      <b id="nutvalve2"></b>
+      <b id="waterpump"></b>
+      <b id="n1"></b>
+      <b id="p1"></b>
+      <b id="k1"></b>
+      <b id="npk1"></b>
+      <b id="moisture1"></b>
+      <b id="ec1"></b>
+      <b id="ph1"></b>
+      <b id="subtemp1"></b>
+      <b id="n2"></b>
+      <b id="p2"></b>
+      <b id="k2"></b>
+      <b id="npk2"></b>
+      <b id="moisture2"></b>
+      <b id="ec2"></b>
+      <b id="ph2"></b>
+      <b id="subtemp2"></b>
+      <!-- headers
+        Cropmode	Growlight1	Growlight2	Wattemp	Nuttemp	Roomtemp1	Coolingfan1	Roomtemp2	Coolingfan2	Watlevel	Nutlevel	Nutvalve1	Watvalve	Nutvalve2	Waterpump	NPK1	Moisture1	EC1	pH1	Subtemp1	NPK2	Moisture2	EC2	pH2	Subtemp2
+      -->
+    </div>
+
+    <script>
+      const url =
+        "https://script.google.com/macros/s/AKfycbx7c34m14o9u0FhhzDZuZiKUpV5OU4C7oROoZxLUCpIqshJe9n8EMuaRod50cxEIqP2/exec";
+      // Fetching the data from sheets from each column
+      fetch(`${url}?header=Cropmode`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("cropmode").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      fetch(`${url}?header=Growlight1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          if (data == "ON") {
+            document.getElementById("Growlight1").checked = true;
+          } else if (data == "OFF") {
+            document.getElementById("Growlight1").checked = false;
+          }
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      fetch(`${url}?header=Growlight2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          if (data == "ON") {
+            document.getElementById("Growlight2").checked = true;
+          } else if (data == "OFF") {
+            document.getElementById("Growlight2").checked = false;
+          }
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateLight1 = () => {
+        fetch(`${url}?header=Growlight1`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            if (data == "ON") {
+              document.getElementById("Growlight1").checked = true;
+            } else if (data == "OFF") {
+              document.getElementById("Growlight1").checked = false;
+            }
+            console.info("Updating light1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      const updateLight2 = () => {
+        fetch(`${url}?header=Growlight2`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            if (data == "ON") {
+              document.getElementById("Growlight2").checked = true;
+            } else if (data == "OFF") {
+              document.getElementById("Growlight2").checked = false;
+            }
+            console.info("Updating light2 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+      // starting fetch
+      fetch(`${url}?header=Wattemp`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("wattemp").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateWattemp = () => {
+        fetch(`${url}?header=Wattemp`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("wattemp").innerHTML = data;
+            console.info("Updating wattemp status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Nuttemp`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("nuttemp").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateNuttemp = () => {
+        fetch(`${url}?header=Nuttemp`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("nuttemp").innerHTML = data;
+            console.info("Updating nuttemp status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Roomtemp1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("roomtemp1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateRoomtemp1 = () => {
+        fetch(`${url}?header=Roomtemp1`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("roomtemp1").innerHTML = data;
+            console.info("Updating roomtemp1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Coolingfan1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("coolingfan1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateCoolingfan1 = () => {
+        fetch(`${url}?header=Coolingfan1`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("coolingfan1").innerHTML = data;
+            console.info("Updating coolingfan1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Roomtemp2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("roomtemp2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateRoomtemp2 = () => {
+        fetch(`${url}?header=Roomtemp2`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("roomtemp2").innerHTML = data;
+            console.info("Updating roomtemp2 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Coolingfan2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("coolingfan2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateCoolingfan2 = () => {
+        fetch(`${url}?header=Coolingfan2`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("coolingfan2").innerHTML = data;
+            console.info("Updating coolingfan2 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Watlevel`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("watlevel").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateWatlevel = () => {
+        fetch(`${url}?header=Watlevel`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("watlevel").innerHTML = data;
+            console.info("Updating watlevel status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Nutlevel`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("nutlevel").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateNutlevel = () => {
+        fetch(`${url}?header=Nutlevel`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("nutlevel").innerHTML = data;
+            console.info("Updating nutlevel status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Nutvalve1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("nutvalve1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateNutvalve1 = () => {
+        fetch(`${url}?header=Nutvalve1`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("nutvalve1").innerHTML = data;
+            console.info("Updating nutvalve1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Watvalve`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("watvalve").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateWatvalve = () => {
+        fetch(`${url}?header=Watvalve`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("watvalve").innerHTML = data;
+            console.info("Updating nutvalve1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Nutvalve2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("nutvalve2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateNutvalve2 = () => {
+        fetch(`${url}?header=Nutvalve2`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("nutvalve2").innerHTML = data;
+            console.info("Updating nutvalve2 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Waterpump`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("waterpump").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateWaterpump = () => {
+        fetch(`${url}?header=Waterpump`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("waterpump").innerHTML = data;
+            console.info("Updating waterpump status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=N1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("n1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      fetch(`${url}?header=P1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("p1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      fetch(`${url}?header=K1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("k1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+        const updateN1 = () => {
+          fetch(`${url}?header=N1`)
+              .then((response) => response.json())
+              .then(({ data }) => {
+                  console.log(data);
+                  document.getElementById("n1").innerHTML = data;
+                  console.info("Updating N1 status..");
+              })
+              .catch((error) => console.error('!!!!!!!!', error));
+      };
+      const updateP1 = () => {
+          fetch(`${url}?header=P1`)
+              .then((response) => response.json())
+              .then(({ data }) => {
+                  console.log(data);
+                  document.getElementById("p1").innerHTML = data;
+                  console.info("Updating P1 status..");
+              })
+              .catch((error) => console.error('!!!!!!!!', error));
+      };
+      const updateK1 = () => {
+          fetch(`${url}?header=K1`)
+              .then((response) => response.json())
+              .then(({ data }) => {
+                  console.log(data);
+                  document.getElementById("k1").innerHTML = data;
+                  console.info("Updating K1 status..");
+              })
+              .catch((error) => console.error('!!!!!!!!', error));
+      };
+        const updateNPK1 = () => {
+                  var n1 = document.getElementById("n1").innerHTML;
+                  var p1 = document.getElementById("p1").innerHTML;
+                  var k1 = document.getElementById("k1").innerHTML;
+                  var npk1 = n1 + ":" + p1 +":" + k1;
+                  document.getElementById("npk1").innerHTML = npk1;
+                  console.info("Updating NPK1 status..");
+              };
+
+      fetch(`${url}?header=Moisture1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("moisture1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateMoisture1 = () => {
+        fetch(`${url}?header=Moisture1`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("moisture1").innerHTML = data;
+            console.info("Updating moisture1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=EC1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("ec1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateEC1 = () => {
+        fetch(`${url}?header=EC1`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("ec1").innerHTML = data;
+            console.info("Updating ec1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=pH1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("ph1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updatepH1 = () => {
+        fetch(`${url}?header=pH1`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("ph1").innerHTML = data;
+            console.info("Updating ph1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Subtemp1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("subtemp1").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateSubtemp1 = () => {
+        fetch(`${url}?header=Subtemp1`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("subtemp1").innerHTML = data;
+            console.info("Updating subtemp1 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=N2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("n2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      fetch(`${url}?header=P2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("p2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      fetch(`${url}?header=K2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("k2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+        const updateN2 = () => {
+          fetch(`${url}?header=N2`)
+              .then((response) => response.json())
+              .then(({ data }) => {
+                  console.log(data);
+                  document.getElementById("n2").innerHTML = data;
+                  console.info("Updating N2 status..");
+              })
+              .catch((error) => console.error('!!!!!!!!', error));
+      };
+      const updateP2 = () => {
+          fetch(`${url}?header=P2`)
+              .then((response) => response.json())
+              .then(({ data }) => {
+                  console.log(data);
+                  document.getElementById("p2").innerHTML = data;
+                  console.info("Updating P2 status..");
+              })
+              .catch((error) => console.error('!!!!!!!!', error));
+      };
+      const updateK2 = () => {
+          fetch(`${url}?header=K2`)
+              .then((response) => response.json())
+              .then(({ data }) => {
+                  console.log(data);
+                  document.getElementById("k2").innerHTML = data;
+                  console.info("Updating K1 status..");
+              })
+              .catch((error) => console.error('!!!!!!!!', error));
+      };
+        const updateNPK2 = () => {
+                  var n2 = document.getElementById("n2").innerHTML;
+                  var p2 = document.getElementById("p2").innerHTML;
+                  var k2 = document.getElementById("k2").innerHTML;
+                  var npk2 = n2 + ":" + p2 +":" + k2;
+                  document.getElementById("npk2").innerHTML = npk2;
+                  console.info("Updating NPK2 status..");
+              };
+
+      fetch(`${url}?header=Moisture2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("moisture2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateMoisture2 = () => {
+        fetch(`${url}?header=Moisture2`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("moisture2").innerHTML = data;
+            console.info("Updating moisture2 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=EC2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("ec2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateEC2 = () => {
+        fetch(`${url}?header=EC2`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("ec2").innerHTML = data;
+            console.info("Updating ec2 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=pH2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("ph2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updatepH2 = () => {
+        fetch(`${url}?header=pH2`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("ph2").innerHTML = data;
+            console.info("Updating ph2 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+
+      fetch(`${url}?header=Subtemp2`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+          console.log(data);
+          document.getElementById("subtemp2").innerHTML = data;
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+
+      const updateSubtemp2 = () => {
+        fetch(`${url}?header=Subtemp2`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            console.log(data);
+            document.getElementById("subtemp2").innerHTML = data;
+            console.info("Updating subtemp2 status..");
+          })
+          .catch((error) => console.error("!!!!!!!!", error));
+      };
+      // ending fetch
+
+      const autoRefresh = ({ anyFunction, interval = 5000 }) => {
+        const execute = () => {
+          anyFunction();
+          setTimeout(execute, interval);
+        };
+        execute();
+      };
+
+      autoRefresh({
+        anyFunction: updateLight1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateLight2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateWattemp,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateNuttemp,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateRoomtemp1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateCoolingfan1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateRoomtemp2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateCoolingfan2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateWatlevel,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateNutlevel,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateNutvalve1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateWatvalve,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateNutvalve2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateWaterpump,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateN1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateP1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateK1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateNPK1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateMoisture1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateEC1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updatepH1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateSubtemp1,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateN2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateP2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateK2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateNPK2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateMoisture2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateEC2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updatepH2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateSubtemp2,
+        interval: 5000,
+      });
+
+      // Checking light status data
+      var lightstat1 = "";
+      var lightstat2 = "";
+      function handleClick(cb) {
+        if (document.getElementById("Growlight1").checked == true) {
+          lightstat1 = "ON";
+        } else {
+          lightstat1 = "OFF";
+        }
+
+        if (document.getElementById("Growlight2").checked == true) {
+          lightstat2 = "ON";
+        } else {
+          lightstat2 = "OFF";
+        }
+
+        // Organising Data to send to Sheets
+        var keyValuePairs = [];
+        var cropmode = document.getElementById("cropmode").innerHTML;
+        // not on page
+        var wattemp = document.getElementById("wattemp").innerHTML;
+        var nuttemp = document.getElementById("nuttemp").innerHTML;
+        var roomtemp1 = document.getElementById("roomtemp1").innerHTML;
+        var coolingfan1 = document.getElementById("coolingfan1").innerHTML;
+        var roomtemp2 = document.getElementById("roomtemp2").innerHTML;
+        var coolingfan2 = document.getElementById("coolingfan2").innerHTML;
+        var watlevel = document.getElementById("watlevel").innerHTML;
+        var nutlevel = document.getElementById("nutlevel").innerHTML;
+        var nutvalve1 = document.getElementById("nutvalve1").innerHTML;
+        var watvalve = document.getElementById("watvalve").innerHTML;
+        var nutvalve2 = document.getElementById("nutvalve2").innerHTML;
+        var waterpump = document.getElementById("waterpump").innerHTML;
+        var n1 = document.getElementById("n1").innerHTML;
+        var p1 = document.getElementById("p1").innerHTML;
+        var k1 = document.getElementById("k1").innerHTML;
+        var moisture1 = document.getElementById("moisture1").innerHTML;
+        var ec1 = document.getElementById("ec1").innerHTML;
+        var ph1 = document.getElementById("ph1").innerHTML;
+        var subtemp1 = document.getElementById("subtemp1").innerHTML;
+        var n2 = document.getElementById("n2").innerHTML;
+        var p2 = document.getElementById("p2").innerHTML;
+        var k2 = document.getElementById("k2").innerHTML;
+        var moisture2 = document.getElementById("moisture2").innerHTML;
+        var ec2 = document.getElementById("ec2").innerHTML;
+        var ph2 = document.getElementById("ph2").innerHTML;
+        var subtemp2 = document.getElementById("subtemp2").innerHTML;
+
+        keyValuePairs.push("Cropmode" + "=" + cropmode);
+        keyValuePairs.push("Growlight1" + "=" + lightstat1);
+        keyValuePairs.push("Growlight2" + "=" + lightstat2);
+        // not on page
+        keyValuePairs.push("Wattemp" + "=" + wattemp);
+        keyValuePairs.push("Nuttemp" + "=" + nuttemp);
+        keyValuePairs.push("Roomtemp1" + "=" + roomtemp1);
+        keyValuePairs.push("Coolingfan1" + "=" + coolingfan1);
+        keyValuePairs.push("Roomtemp2" + "=" + roomtemp2);
+        keyValuePairs.push("Coolingfan2" + "=" + coolingfan2);
+        keyValuePairs.push("Watlevel" + "=" + watlevel);
+        keyValuePairs.push("Nutlevel" + "=" + nutlevel);
+        keyValuePairs.push("Nutvalve1" + "=" + nutvalve1);
+        keyValuePairs.push("Watvalve" + "=" + watvalve);
+        keyValuePairs.push("Nutvalve2" + "=" + nutvalve2);
+        keyValuePairs.push("Waterpump" + "=" + waterpump);
+        keyValuePairs.push("N1" + "=" + "'" + n1);
+        keyValuePairs.push("P1" + "=" + "'" + p1);
+        keyValuePairs.push("K1" + "=" + "'" + k1);
+        keyValuePairs.push("Moisture1" + "=" + moisture1);
+        keyValuePairs.push("EC1" + "=" + ec1);
+        keyValuePairs.push("pH1" + "=" + ph1);
+        keyValuePairs.push("Subtemp1" + "=" + subtemp1);
+        keyValuePairs.push("N2" + "=" + "'" + n2);
+        keyValuePairs.push("P2" + "=" + "'" + p2);
+        keyValuePairs.push("K2" + "=" + "'" + k2);
+        keyValuePairs.push("Moisture2" + "=" + moisture2);
+        keyValuePairs.push("EC2" + "=" + ec2);
+        keyValuePairs.push("pH2" + "=" + ph2);
+        keyValuePairs.push("Subtemp2" + "=" + wattemp);
+
+        var formDataString = keyValuePairs.join("&");
+        console.log(formDataString);
+        //   Send a POST request to your Google Apps Script
+        fetch(
+          "https://script.google.com/macros/s/AKfycbx7c34m14o9u0FhhzDZuZiKUpV5OU4C7oROoZxLUCpIqshJe9n8EMuaRod50cxEIqP2/exec",
+          {
+            redirect: "follow",
+            method: "POST",
+            body: formDataString,
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+          }
+        )
+          .then(function (response) {
+            // Check if the request was successful
+            if (response) {
+              return response; // Assuming your script returns JSON response
+            } else {
+              throw new Error("Failed to submit data.");
+            }
+          })
+          .catch(function (error) {
+            // Handle errors, you can display an error message here
+            console.error(error);
+          });
+      }
+    </script>
+  </body>
+</html>
