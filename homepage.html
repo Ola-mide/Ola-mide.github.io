@@ -148,7 +148,6 @@
           <b id="p2"></b>
           <b id="k2"></b>
           </div>
-            <br><br><br>
         <script>
           const url = "https://script.google.com/macros/s/AKfycbx7c34m14o9u0FhhzDZuZiKUpV5OU4C7oROoZxLUCpIqshJe9n8EMuaRod50cxEIqP2/exec" 
           
@@ -382,6 +381,16 @@
                   console.log(data);
                   document.getElementById("n1").innerHTML = data;
                   console.info("Updating N1 status..");
+              })
+              .catch((error) => console.error('!!!!!!!!', error));
+      };
+      const updateCropmode = () => {
+        fetch(`${url}?header=Cropmode`)
+              .then((response) => response.json())
+              .then(({ data }) => {
+                  console.log(data);
+                  document.getElementById("cropmode").innerHTML = data;
+                  console.info("Updating Cropmode..");
               })
               .catch((error) => console.error('!!!!!!!!', error));
       };
@@ -788,6 +797,10 @@
       });
       autoRefresh({
         anyFunction: updateCoolingfan2,
+        interval: 5000,
+      });
+      autoRefresh({
+        anyFunction: updateCropmode,
         interval: 5000,
       });
       </script>
