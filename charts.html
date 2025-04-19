@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Charts" />
+    <meta name="author" content="Abdulrahman" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="charts.css" />
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+
+    <title>CHARTS</title>
+  </head>
+  <body>
+    <div class="menu-bar">
+      <ul>
+        <li>
+          <b><a href="homepage.html">Home</a></b>
+        </li>
+        <li>
+          <b><a href="temperature.html">Temperature</a></b>
+        </li>
+        <li>
+          <b><a href="lighting.html">Lighting</a></b>
+        </li>
+        <li>
+          <b><a href="pump_valves.html">Pump & Valves</a></b>
+        </li>
+        <li class="active">
+          <b><a href="charts.html">Charts</a></b>
+        </li>
+      </ul>
+    </div>
+    <br /><br /><br /><br />
+    <div class="cropmodestyle">
+      <b>Crop Mode:&nbsp;&nbsp;</b><b id="cropmode">...</b>
+    </div>
+    <div class="tray1">
+      <b class="traytext">TRAY 1</b>
+      <br /><br />
+      <div id="pHchart1" style="width: 900px; height: 650px"></div>
+      <br />
+      <div id="ECchart1" style="width: 900px; height: 650px"></div>
+      <br />
+      <div id="mstrchart1" style="width: 900px; height: 650px"></div>
+      <br />
+      <div id="roomtempchart1" style="width: 900px; height: 650px"></div>
+      <br />
+      <div id="subtempchart1" style="width: 900px; height: 650px"></div>
+    </div>
+    <br />
+    <div class="tray2">
+      <b class="traytext">TRAY 2</b>
+      <br /><br />
+      <div id="pHchart2" style="width: 900px; height: 650px"></div>
+      <br />
+      <div id="ECchart2" style="width: 900px; height: 650px"></div>
+      <br />
+      <div id="mstrchart2" style="width: 900px; height: 650px"></div>
+      <br />
+      <div id="roomtempchart2" style="width: 900px; height: 650px"></div>
+      <br />
+      <div id="subtempchart2" style="width: 900px; height: 650px"></div>
+    </div>
+    <div id="invisible">
+      <b id="celcius">(&#8451;)</b>
+      <b id="moisture">(m&#179;/m&#179;)</b>
+      <b id="coltanklevel"></b>
+      <b id="nutsoltanklevel"></b>
+    </div>
+    <script src="charts.js"></script>
+  </body>
+</html>

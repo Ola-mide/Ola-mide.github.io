@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Temperature" />
+    <meta name="author" content="Abdulrahman" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="temperature.css" />
+    <title>Temperature</title>
+  </head>
+  <body>
+    <div class="menu-bar">
+      <ul>
+        <li>
+          <b><a href="homepage.html">Home</a></b>
+        </li>
+        <li class="active">
+          <b><a href="temperature.html">Temperature</a></b>
+        </li>
+        <li>
+          <b><a href="lighting.html">Lighting</a></b>
+        </li>
+        <li>
+          <b><a href="pump_valves.html">Pump & Valves</a></b>
+        </li>
+        <li>
+          <b><a href="charts.html">Charts</a></b>
+        </li>
+      </ul>
+    </div>
+    <br /><br /><br /><br />
+    <div class="cropmodestyle">
+      <b>Crop Mode:&nbsp;&nbsp;</b><b id="cropmode">...</b>
+    </div>
+    <div class="tray1">
+      <b class="traytext">TRAY 1</b>
+      <br /><br />
+      <div class="tempA">
+        <b>Room Temperature:&nbsp;&nbsp;</b><b id="Roomtemp1">...</b>&#8451;
+      </div>
+      <br />
+      <div class="growlightlabel">
+        <b>&nbsp;&nbsp;Cooling Fan:&nbsp;&nbsp;</b>
+        <b>OFF</b>
+        <label class="switch">
+          <input
+            type="checkbox"
+            id="Coolingfan1"
+            onclick="handleClick(this);"
+          />
+          <span class="slider round"></span>
+        </label>
+        <b>ON</b>
+      </div>
+    </div>
+    <br />
+    <div class="tray2">
+      <b class="traytext">TRAY 2</b>
+      <br /><br />
+      <div class="tempA">
+        <b>Room Temperature:&nbsp;&nbsp;</b><b id="Roomtemp2">...</b>&#8451;
+      </div>
+      <br />
+      <div class="growlightlabel">
+        <b>&nbsp;&nbsp;Cooling Fan:&nbsp;&nbsp;</b>
+        <b>OFF</b>
+        <label class="switch">
+          <input
+            type="checkbox"
+            id="Coolingfan2"
+            onclick="handleClick(this);"
+          />
+          <span class="slider round"></span>
+        </label>
+        <b>ON</b>
+      </div>
+    </div>
+
+    <div id="invisible">
+      <b id="growlight1"></b>
+      <b id="growlight2"></b>
+      <b id="coltanklevel"></b>
+      <b id="nutsoltanklevel"></b>
+      <b id="nutvalve1"></b>
+      <b id="nutvalve2"></b>
+      <b id="nutpump"></b>
+      <b id="n1"></b>
+      <b id="p1"></b>
+      <b id="k1"></b>
+      <b id="npk1"></b>
+      <b id="moisture1"></b>
+      <b id="ec1"></b>
+      <b id="ph1"></b>
+      <b id="subtemp1"></b>
+      <b id="n2"></b>
+      <b id="p2"></b>
+      <b id="k2"></b>
+      <b id="npk2"></b>
+      <b id="moisture2"></b>
+      <b id="ec2"></b>
+      <b id="ph2"></b>
+      <b id="subtemp2"></b>
+    </div>
+    <script src="temperature.js"></script>
+  </body>
+</html>

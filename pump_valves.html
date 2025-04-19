@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="PumpandValves" />
+    <meta name="author" content="Abdulrahman" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="pump_valves.css" />
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <title>Pump and Valves</title>
+  </head>
+  <body>
+    <div class="menu-bar">
+      <ul>
+        <li>
+          <b><a href="homepage.html">Home</a></b>
+        </li>
+        <li>
+          <b><a href="temperature.html">Temperature</a></b>
+        </li>
+        <li>
+          <b><a href="lighting.html">Lighting</a></b>
+        </li>
+        <li class="active">
+          <b><a href="pump_valves.html">Pump & Valves</a></b>
+        </li>
+        <li>
+          <b><a href="charts.html">Charts</a></b>
+        </li>
+      </ul>
+    </div>
+    <br /><br /><br /><br />
+    <div class="cropmodestyle">
+      <b>Crop Mode:&nbsp;&nbsp;</b><b id="cropmode">...</b>
+    </div>
+    <div class="watnutheading">
+      <div class="levelW">
+        <b>Nutrient Soln. Tank Level:</b><b id="coltanklevel">&nbsp;&nbsp;</b>
+      </div>
+      <div class="levelN">
+        <b>Collector Tank Level:</b><b id="nutsoltanklevel">&nbsp;&nbsp;</b>
+      </div>
+    </div>
+    <div class="gauges">
+      <div id="watdiv" style="width: 400px; height: 120px"></div>
+      <div id="nutdiv" style="width: 400px; height: 120px"></div>
+    </div>
+    <br />
+    <div class="growlightlabel">
+      <b>&nbsp;&nbsp;Nutrient Pump:&nbsp;&nbsp;</b>
+      <b>OFF</b>
+      <label class="switch">
+        <input type="checkbox" id="nutpump" onclick="handleClick(this);" />
+        <span class="slider round"></span>
+      </label>
+      <b>ON</b>
+    </div>
+    <br>
+    <div class="tray1">
+      <b class="traytext">TRAY 1</b>
+      <br /><br />
+      <div class="growlightlabel">
+        <b>&nbsp;&nbsp;Nutrient Valve:&nbsp;&nbsp;</b>
+        <b>OFF</b>
+        <label class="switch">
+          <input type="checkbox" id="Nutvalve1" onclick="handleClick(this);" />
+          <span class="slider round"></span>
+        </label>
+        <b>ON</b>
+      </div>
+    </div>
+    <br />
+    <div class="tray2">
+      <b class="traytext">TRAY 2</b>
+      <br /><br />
+      <div class="growlightlabel">
+        <b>&nbsp;&nbsp;Nutrient Valve:&nbsp;&nbsp;</b>
+        <b>OFF</b>
+        <label class="switch">
+          <input type="checkbox" id="Nutvalve2" onclick="handleClick(this);" />
+          <span class="slider round"></span>
+        </label>
+        <b>ON</b>
+      </div>
+    </div>
+    <div id="invisible">
+      <b id="growlight1"></b>
+      <b id="growlight2"></b>
+      <b id="roomtemp1"></b>
+      <b id="coolingfan1"></b>
+      <b id="roomtemp2"></b>
+      <b id="coolingfan2"></b>
+      <b id="n1"></b>
+      <b id="p1"></b>
+      <b id="k1"></b>
+      <b id="npk1"></b>
+      <b id="moisture1"></b>
+      <b id="ec1"></b>
+      <b id="ph1"></b>
+      <b id="subtemp1"></b>
+      <b id="n2"></b>
+      <b id="p2"></b>
+      <b id="k2"></b>
+      <b id="npk2"></b>
+      <b id="moisture2"></b>
+      <b id="ec2"></b>
+      <b id="ph2"></b>
+      <b id="subtemp2"></b>
+      <!-- headers
+        Cropmode	Growlight1	Growlight2	Wattemp	Nuttemp	Roomtemp1	Coolingfan1	Roomtemp2	Coolingfan2	Watlevel	Nutlevel	Nutvalve1	Watvalve	Nutvalve2	Waterpump	NPK1	Moisture1	EC1	pH1	Subtemp1	NPK2	Moisture2	EC2	pH2	Subtemp2
+      -->
+    </div>
+    <script src="pump_valves.js"></script>
+  </body>
+</html>
