@@ -199,12 +199,74 @@ function drawChart() {
         })
         .catch((error) => console.error("!!!!!!!!", error));
 }
+fetch(`${url}?header=Coltanklevel`)
+    .then((response) => response.json())
+    .then(({ data }) => {
+        console.log(data);
+        document.getElementById("coltanklevel").innerHTML = data;
+    })
+    .catch((error) => console.error('!!!!!!!!', error));
+    
+const updateColtanklevel = () => {
+    fetch(`${url}?header=Coltanklevel`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+            console.log(data);
+            document.getElementById("coltanklevel").innerHTML = data;
+            console.info("Updating Collector tank status..");
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+};
 
-const updateAlert = () => {
+fetch(`${url}?header=Nutsoltanklevel`)
+    .then((response) => response.json())
+    .then(({ data }) => {
+        console.log(data);
+        document.getElementById("nutsoltanklevel").innerHTML = data;
+    })
+    .catch((error) => console.error("!!!!!!!!", error));
+
+const updateNutsoltanklevel = () => {
+    fetch(`${url}?header=Nutsoltanklevel`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+            console.log(data);
+            document.getElementById("nutsoltanklevel").innerHTML = data;
+            console.info("Updating Nutrient Solution tank status..");
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+};
+
+fetch(`${url}?header=Moisture1`)
+    .then((response) => response.json())
+    .then(({ data }) => {
+        console.log(data);
+        document.getElementById("moisture1").innerHTML = data;
+    })
+    .catch((error) => console.error("!!!!!!!!", error));
+
+const updateMoisture1 = () => {
+    fetch(`${url}?header=Moisture1`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+            console.log(data);
+            document.getElementById("moisture1").innerHTML = data;
+            console.info("Updating moisture1 status..");
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+};
+
+const updateAlert1 = () => {
     var coltanklevel = parseInt(document.getElementById("coltanklevel").innerHTML);
     var nutsoltanklevel = parseInt(document.getElementById("nutsoltanklevel").innerHTML);
     if (coltanklevel <= 10 && nutsoltanklevel <= 10) {
         alert("Nutrient Solution Tank Level is LOW!!!");
+    };
+};
+const updateAlert2 = () => {
+    var moisture1 = parseInt(document.getElementById("moisture1").innerHTML);
+    if (moisture1 <= 10) {
+        alert("Moisture Content in Tray1 is LOW!!!");
     };
 };
 const autoRefresh = ({ anyFunction, interval = 5000 }) => {
@@ -217,8 +279,24 @@ const autoRefresh = ({ anyFunction, interval = 5000 }) => {
 };
 
 autoRefresh({
-    anyFunction: updateAlert,
+    anyFunction: updateAlert1,
     interval: 60000,
+});
+autoRefresh({
+    anyFunction: updateAlert2,
+    interval: 70000,
+});
+autoRefresh({
+    anyFunction: updateColtanklevel,
+    interval: 3500,
+});
+autoRefresh({
+    anyFunction: updateNutsoltanklevel,
+    interval: 3500,
+});
+autoRefresh({
+    anyFunction: updateMoisture1,
+    interval: 3500,
 });
 
 autoRefresh({

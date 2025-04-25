@@ -93,7 +93,7 @@ function drawChart() {
 
         data1.setValue(0, 1, coltanklevel);
         chart1.draw(data1, options);
-    }, 5000);
+    }, 3500);
 
     setInterval(function () {
         fetch(`${url}?header=Nutsoltanklevel`)
@@ -106,7 +106,7 @@ function drawChart() {
 
         data2.setValue(0, 1, nutsoltanklevel);
         chart2.draw(data2, options);
-    }, 5000);
+    }, 3500);
 }
 
 const updateNutvalve1 = () => {
@@ -268,6 +268,64 @@ const updateCoolingfan2 = () => {
         })
         .catch((error) => console.error("!!!!!!!!", error));
 };
+
+
+fetch(`${url}?header=Ntank`)
+    .then((response) => response.json())
+    .then(({ data }) => {
+        console.log(data);
+        document.getElementById("ntank").innerHTML = data;
+    })
+    .catch((error) => console.error("!!!!!!!!", error));
+
+fetch(`${url}?header=Ptank`)
+    .then((response) => response.json())
+    .then(({ data }) => {
+        console.log(data);
+        document.getElementById("ptank").innerHTML = data;
+    })
+    .catch((error) => console.error("!!!!!!!!", error));
+
+fetch(`${url}?header=Ktank`)
+    .then((response) => response.json())
+    .then(({ data }) => {
+        console.log(data);
+        document.getElementById("ktank").innerHTML = data;
+    })
+    .catch((error) => console.error("!!!!!!!!", error));
+
+const updateNtank = () => {
+    fetch(`${url}?header=Ntank`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+            console.log(data);
+            document.getElementById("ntank").innerHTML = data;
+            console.info("Updating Ntank status..");
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+};
+const updatePtank = () => {
+    fetch(`${url}?header=Ptank`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+            console.log(data);
+            document.getElementById("ptank").innerHTML = data;
+            console.info("Updating Ptank status..");
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+};
+const updateKtank = () => {
+    fetch(`${url}?header=Ktank`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+            console.log(data);
+            document.getElementById("ktank").innerHTML = data;
+            console.info("Updating Ktank status..");
+        })
+        .catch((error) => console.error("!!!!!!!!", error));
+};
+
+
 fetch(`${url}?header=N1`)
     .then((response) => response.json())
     .then(({ data }) => {
@@ -546,14 +604,20 @@ const updateSubtemp2 = () => {
         .catch((error) => console.error("!!!!!!!!", error));
 };
 
-const updateAlert = () => {
+const updateAlert1 = () => {
     if (coltanklevel <= 10 && nutsoltanklevel <= 10) {
         alert("Nutrient Solution Tank Level is LOW!!!");
     };
 };
+const updateAlert2 = () => {
+    var moisture1 = parseInt(document.getElementById("moisture1").innerHTML);
+    if (moisture1 <= 10) {
+        alert("Moisture Content in Tray1 is LOW!!!");
+    };
+};
 // ending fetch
 
-const autoRefresh = ({ anyFunction, interval = 5000 }) => {
+const autoRefresh = ({ anyFunction, interval = 3500 }) => {
     const execute = () => {
         anyFunction();
         setTimeout(execute, interval);
@@ -562,110 +626,129 @@ const autoRefresh = ({ anyFunction, interval = 5000 }) => {
 };
 
 autoRefresh({
-    anyFunction: updateAlert,
+    anyFunction: updateAlert1,
     interval: 60000,
+});
+autoRefresh({
+    anyFunction: updateAlert2,
+    interval: 70000,
 });
 
 autoRefresh({
     anyFunction: updateNutvalve1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateNutvalve2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateNutpump,
-    interval: 5000,
+    interval: 3500,
 });
 //
 autoRefresh({
     anyFunction: updateGrowlight1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateGrowlight2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateRoomtemp1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateCoolingfan1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateRoomtemp2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateCoolingfan2,
-    interval: 5000,
+    interval: 3500,
+});
+
+autoRefresh({
+    anyFunction: updateNtank,
+    interval: 3500,
 });
 autoRefresh({
+    anyFunction: updatePtank,
+    interval: 3500,
+});
+autoRefresh({
+    anyFunction: updateKtank,
+    interval: 3500,
+});
+
+
+autoRefresh({
     anyFunction: updateN1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateP1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateK1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateNPK1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateMoisture1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateEC1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updatepH1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateSubtemp1,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateN2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateP2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateK2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateNPK2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateMoisture2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateEC2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updatepH2,
-    interval: 5000,
+    interval: 3500,
 });
 autoRefresh({
     anyFunction: updateSubtemp2,
-    interval: 5000,
+    interval: 3500,
 });
 //
 
@@ -696,6 +779,9 @@ function handleClick(cb) {
     var keyValuePairs = [];
     var cropmode = document.getElementById("cropmode").innerHTML;
     // not on page
+    var ntank = document.getElementById("ntank").innerHTML;
+    var ptank = document.getElementById("ptank").innerHTML;
+    var ktank = document.getElementById("ktank").innerHTML;
     var growlight1 = document.getElementById("growlight1").innerHTML;
     var growlight2 = document.getElementById("growlight2").innerHTML;
     var roomtemp1 = document.getElementById("roomtemp1").innerHTML;
@@ -724,6 +810,9 @@ function handleClick(cb) {
     keyValuePairs.push("Nutvalve2" + "=" + nutvalve2);
     keyValuePairs.push("Nutpump" + "=" + nutpump);
     // not on page
+    keyValuePairs.push("Ntank" + "=" + "'" + ntank);
+    keyValuePairs.push("Ptank" + "=" + "'" + ptank);
+    keyValuePairs.push("Ktank" + "=" + "'" + ktank);
     keyValuePairs.push("Growlight1" + "=" + growlight1);
     keyValuePairs.push("Growlight2" + "=" + growlight2);
     keyValuePairs.push("Roomtemp1" + "=" + roomtemp1);
