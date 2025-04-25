@@ -82,6 +82,7 @@ fetch(`${url}?header=Moisture1`)
         console.log(data);
         var x = document.getElementById("tableParam1").rows[2].cells;
         x[1].innerHTML = data;
+        document.getElementById("moisture1").innerHTML = data;
     })
     .catch((error) => console.error('!!!!!!!!', error));
 
@@ -364,6 +365,7 @@ const updateMoisture1 = () => {
             console.log(data);
             var x = document.getElementById("tableParam1").rows[2].cells;
             x[1].innerHTML = data;
+            document.getElementById("moisture1").innerHTML = data;
             console.info("Updating Moisture1 status..");
         })
         .catch((error) => console.error('!!!!!!!!', error));
@@ -597,8 +599,7 @@ const updateAlert1 = () => {
     };
 };
 const updateAlert2 = () => {
-    var moistureRow = document.getElementById("tableParam1").rows[2].cells;
-    var moisture1 = moistureRow[1].innerHTML;
+    var moisture1 = parseInt(document.getElementById("moisture1").innerHTML);
     if (moisture1 <= 10) {
         alert("Moisture Content in Tray1 is LOW!!!");
     };
