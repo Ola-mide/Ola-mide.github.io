@@ -92,7 +92,7 @@ function drawChart() {
             .catch((error) => console.error("!!!!!!!!", error));
 
         data1.setValue(0, 1, nutsoltanklevel);
-        chart1.draw(data2, options);
+        chart1.draw(data1, options);
     }, 3500);
 
     setInterval(function () {
@@ -105,7 +105,7 @@ function drawChart() {
             .catch((error) => console.error("!!!!!!!!", error));
 
         data2.setValue(0, 1, coltanklevel);
-        chart2.draw(data1, options);
+        chart2.draw(data2, options);
     }, 3500);
 
 
