@@ -83,19 +83,6 @@ function drawChart() {
     chart2.draw(data2, options);
 
     setInterval(function () {
-        fetch(`${url}?header=Coltanklevel`)
-            .then((response) => response.json())
-            .then(({ data }) => {
-                console.log(data);
-                coltanklevel = parseFloat(data);
-            })
-            .catch((error) => console.error("!!!!!!!!", error));
-
-        data1.setValue(0, 1, coltanklevel);
-        chart1.draw(data1, options);
-    }, 3500);
-
-    setInterval(function () {
         fetch(`${url}?header=Nutsoltanklevel`)
             .then((response) => response.json())
             .then(({ data }) => {
@@ -104,9 +91,24 @@ function drawChart() {
             })
             .catch((error) => console.error("!!!!!!!!", error));
 
-        data2.setValue(0, 1, nutsoltanklevel);
-        chart2.draw(data2, options);
+        data1.setValue(0, 1, nutsoltanklevel);
+        chart1.draw(data2, options);
     }, 3500);
+
+    setInterval(function () {
+        fetch(`${url}?header=Coltanklevel`)
+            .then((response) => response.json())
+            .then(({ data }) => {
+                console.log(data);
+                coltanklevel = parseFloat(data);
+            })
+            .catch((error) => console.error("!!!!!!!!", error));
+
+        data2.setValue(0, 1, coltanklevel);
+        chart2.draw(data1, options);
+    }, 3500);
+
+
 }
 
 const updateNutvalve1 = () => {
