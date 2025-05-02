@@ -570,15 +570,15 @@ const updateSubtemp2 = () => {
 // ending fetch
 
 const updateAlert1 = () => {
-    var coltanklevel = parseInt(document.getElementById("coltanklevel").innerHTML);
-    var nutsoltanklevel = parseInt(document.getElementById("nutsoltanklevel").innerHTML);
-    if (coltanklevel <= 10 && nutsoltanklevel <= 10) {
+    var coltanklevel = parseFloat(document.getElementById("coltanklevel").innerHTML);
+    var nutsoltanklevel = parseFloat(document.getElementById("nutsoltanklevel").innerHTML);
+    if (coltanklevel <= 2.62 && nutsoltanklevel <= 8.34) {
         alert("Nutrient Solution Tank Level is LOW!!!");
     };
 };
 const updateAlert2 = () => {
-    var moisture1 = parseInt(document.getElementById("moisture1").innerHTML);
-    if (moisture1 <= 10) {
+    var moisture1 = parseFloat(document.getElementById("moisture1").innerHTML);
+    if (moisture1 <= 20) {
         alert("Moisture Content in Tray1 is LOW!!!");
     };
 };
