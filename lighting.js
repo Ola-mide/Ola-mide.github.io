@@ -1,5 +1,7 @@
 const url =
     "https://script.google.com/macros/s/AKfycbx7c34m14o9u0FhhzDZuZiKUpV5OU4C7oROoZxLUCpIqshJe9n8EMuaRod50cxEIqP2/exec";
+
+const url2 = "https://script.google.com/macros/s/AKfycbydAMQwblFtwWzTftE_iBj9EPQgP1XBlaMp8tc7AfEwClZfdgLtjHsaft__x0b2LiyQRg/exec";
 // Fetching the data from sheets from each column
 fetch(`${url}?header=Cropmode`)
     .then((response) => response.json())
@@ -32,6 +34,17 @@ fetch(`${url}?header=Growlight2`)
         }
     })
     .catch((error) => console.error("!!!!!!!!", error));
+
+const updateCropmode = () => {
+    fetch(`${url2}?header=Cropmode`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+            console.log(data);
+            document.getElementById("cropmode").innerHTML = data;
+            console.info("Updating Cropmode..");
+        })
+        .catch((error) => console.error('!!!!!!!!', error));
+};
 
 const updateLight1 = () => {
     fetch(`${url}?header=Growlight1`)
@@ -718,6 +731,10 @@ autoRefresh({
 });
 autoRefresh({
     anyFunction: updateSubtemp2,
+    interval: 3500,
+});
+autoRefresh({
+    anyFunction: updateCropmode,
     interval: 3500,
 });
 

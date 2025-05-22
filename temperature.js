@@ -1,8 +1,10 @@
 const url =
     "https://script.google.com/macros/s/AKfycbx7c34m14o9u0FhhzDZuZiKUpV5OU4C7oROoZxLUCpIqshJe9n8EMuaRod50cxEIqP2/exec";
 
+const url2 = "https://script.google.com/macros/s/AKfycbydAMQwblFtwWzTftE_iBj9EPQgP1XBlaMp8tc7AfEwClZfdgLtjHsaft__x0b2LiyQRg/exec";
+
 // fetching the data from each column in the sheet
-fetch(`${url}?header=Cropmode`)
+fetch(`${url2}?header=Cropmode`)
     .then((response) => response.json())
     .then(({ data }) => {
         console.log(data);
@@ -49,6 +51,17 @@ fetch(`${url}?header=Coolingfan2`)
         }
     })
     .catch((error) => console.error("!!!!!!!!", error));
+
+const updateCropmode = () => {
+    fetch(`${url2}?header=Cropmode`)
+        .then((response) => response.json())
+        .then(({ data }) => {
+            console.log(data);
+            document.getElementById("cropmode").innerHTML = data;
+            console.info("Updating Cropmode..");
+        })
+        .catch((error) => console.error('!!!!!!!!', error));
+};
 
 const updateRoomtemp1 = () => {
     fetch(`${url}?header=Roomtemp1`)
@@ -156,7 +169,7 @@ fetch(`${url}?header=Coltanklevel`)
         document.getElementById("coltanklevel").innerHTML = data;
     })
     .catch((error) => console.error('!!!!!!!!', error));
-    
+
 const updateColtanklevel = () => {
     fetch(`${url}?header=Coltanklevel`)
         .then((response) => response.json())
@@ -733,6 +746,10 @@ autoRefresh({
     anyFunction: updateAlert2,
     interval: 70000,
 });
+autoRefresh({
+    anyFunction: updateCropmode,
+    interval: 3500,
+});
 
 // Checking coolingfan status data
 var coolingfan1 = "";
@@ -838,3 +855,4 @@ function handleClick(cb) {
             console.error(error);
         });
 }
+
